@@ -2,10 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-int _setenv(const char *name, const char *value, int overwrite);
-int _unsetenv(const char *name);
-char *cat(const char *s1, const char *s2);
-
 /**
  * _setenv - changes or adds an environment variable
  * @name: env key
