@@ -1,14 +1,19 @@
 #include "headers.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-#include <fcntl.h>
 
+/**
+ * main - Entry point for the shell, handles the interactive and non-interactive
+ * modes of the shell
+ *
+ * @ac: argument count
+ * @av: argument vector
+ *
+ * Return - 0 on success, -1 of failure
+ */
 int main(int ac, char **av)
 {
 	char *input;
 
+	// get the input from the user
 	if (isatty(STDIN_FILENO))
 	{
 		// interactive
@@ -18,7 +23,8 @@ int main(int ac, char **av)
 			input = readline();
 			if (input == NULL)
 				return (0);
-			printf("%s\n", input);
+			process(input);
+			//printf("%s\n", input);
 			free(input);
 		}
 	}
@@ -28,7 +34,8 @@ int main(int ac, char **av)
 		input = readline();
 		if (input == NULL)
 		    return (0);
-		printf("%s\n", input);
+		process(input);
+		//printf("%s\n", input);
 		free(input);
 	}
 
