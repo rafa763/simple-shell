@@ -4,7 +4,8 @@
 #include <string.h>
 //notes:
 //want to get/return string of home direstory from this function
-//handle cd - too 
+//handle cd - too (return to previous directory)
+//
 char *get_home(void)
 {
         int i;
@@ -20,29 +21,19 @@ char *get_home(void)
                         token = strtok(NULL, "=");
                         path = token;
 			home = strdup(token);
-			printf("return home :%s\n",home);
+			if (home != NULL)
 			return (home);
-			break;
                 }
         }
-
-        if (!path)
-                return (0);
-        token = strtok(token, ":");
-        while (token)
-        {
-               printf("inside home %s\n", token);
-		token = strtok(NULL, ":");
-        }
-        return (home);
 }
 char * _cd(char *newdir)
 {
 	char buff[1024];
 	char *dir;
+	char *parentdir;
 	
 	dir = getcwd(buff, 1024);
-       // printf("%s\n",dir);
+	printf("first directory : %s\n",dir);
 	
 	if (chdir(newdir) == -1)
 	{
@@ -50,20 +41,24 @@ char * _cd(char *newdir)
 	}
 	else
 	{
-		if (newdir == "/root")
+		if (strcmp(newdir, "..") == 0)
 		{
-			newdir = get_home();
-			if(chdir(newdir) == 0)
-			printf("worked");
+			
+			parentdir = get_home();
+			chdir(parentdir);
+			dir = getcwd(buff, 1024);
+			printf("new dir :%s\n",dir);
 		}
-	dir = getcwd(buff, 1024);
-        printf("new dir :%s\n",dir);
+		if (strcmp(newdir, "-") == 0)
+		{
+		}
 	}
+	free(parentdir);
 }
 
 int main()
 {
-	char *current_dir = _cd("/root");
+	char *current_dir = _cd("..");
 	char *homepath= get_home();
 	printf("home return %s\n",homepath);
 	return 0;
