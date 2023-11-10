@@ -22,7 +22,10 @@ int process(char *input)
 	}
 	args[argcount] = NULL;
 
-	checkcommand(command, args);
+	if (strcmp(command, "env") == 0)
+		_getenv();
+	else
+		checkcommand(command, args);
 
 	return (0);
 }
