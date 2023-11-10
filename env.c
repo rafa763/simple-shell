@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+#include "headers.h"
 
 /**
  * _setenv - changes or adds an environment variable
