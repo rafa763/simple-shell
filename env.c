@@ -6,15 +6,6 @@ int _setenv(const char *name, const char *value, int overwrite);
 int _unsetenv(const char *name);
 char *cat(const char *s1, const char *s2);
 
-int main(void)
-{
-	int stat, s2;
-
-	// stat = _setenv("xxxUSER", "raafat", 1);
-	s2 = _unsetenv("xxUSER");
-
-	return (0);
-}
 /**
  * _setenv - changes or adds an environment variable
  * @name: env key
