@@ -25,6 +25,7 @@ char *get_home(void)
 			return (home);
                 }
         }
+	free(home);
 }
 char *get_previous(void)
 {
@@ -43,9 +44,9 @@ char *get_previous(void)
 			if (previous != NULL)
 			return (previous);
                 }
-        }
+        }free(previous);
 }
-char * _cd(char *newdir)
+void * _cd(char *newdir)
 {
 	char buff[1024];
 	char *dir;
@@ -54,13 +55,7 @@ char * _cd(char *newdir)
 	dir = getcwd(buff, 1024);
 	printf("first directory : %s\n",dir);
 	
-	if (chdir(newdir) == -1)
-	{
-	printf("cd failed wrong directory\n");
-	}
-	else
-	{
-		if (strcmp(newdir, "..") == 0)
+		if (newdir == NULL)
 		{
 			
 			parentdir = get_home();
@@ -68,21 +63,31 @@ char * _cd(char *newdir)
 			dir = getcwd(buff, 1024);
 			printf("new dir :%s\n",dir);
 		}
-		if (strcmp(newdir, "-") == 0)
+		else if (strcmp(newdir, "-") == 0)
 		{
 			parentdir = get_previous();
 			chdir(parentdir);
 			dir = getcwd(buff, 1024);
 			printf("new dir :%s\n",dir);
 		}
-	}
+		else
+		{
+			if (chdir(newdir) == -1)
+			{
+			printf("cd failed wrong directory\n");
+			}
+			chdir(newdir);
+			dir = getcwd(buff, 1024);
+			printf("new dir: %s\n",dir);
+		}	
 	free(parentdir);
 }
 
 int main()
 {
-	char *current_dir = _cd("-");
-	char *homepath= get_home();
-	printf("home return %s\n",homepath);
+	_cd(NULL);
+	_cd("-");
+	_cd("/bin");
+	//_cd("/root");
 	return 0;
 }
