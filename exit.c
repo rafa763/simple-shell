@@ -1,11 +1,12 @@
 #include <stdio.h>
+#include <unistd.h>
 /*
  * _exitshell:exit the shell
  * status:user input to exit command
  */
-int _exitshell(status)
+int _exitshell(int status)
 {
-  if (status == 0)
+  if (status == 0 || !status)
   {printf("\nnormal exit\n");
   _exit(0);}
 
@@ -17,8 +18,12 @@ int _exitshell(status)
  { printf("\nerror exit\n");
   _exit(status);
 }
+}
 
 int main(void)
 {
-_exitshell();
+//_exitshell(3);
+//_exitshell(0);
+//_exitshell(-1);
+_exitshell('\0');
 }
