@@ -26,6 +26,25 @@ char *get_home(void)
                 }
         }
 }
+char *get_previous(void)
+{
+        int i;
+        char *token,* previous;
+        extern char **environ;
+
+        for (i = 0; environ[i]; i++)
+        {
+                token = strtok(environ[i], "=");
+
+                if (strcmp("OLDPWD", token) == 0)
+                {
+                        token = strtok(NULL, "=");
+			previous = strdup(token);
+			if (previous != NULL)
+			return (previous);
+                }
+        }
+}
 char * _cd(char *newdir)
 {
 	char buff[1024];
@@ -51,6 +70,10 @@ char * _cd(char *newdir)
 		}
 		if (strcmp(newdir, "-") == 0)
 		{
+			parentdir = get_previous();
+			chdir(parentdir);
+			dir = getcwd(buff, 1024);
+			printf("new dir :%s\n",dir);
 		}
 	}
 	free(parentdir);
@@ -58,7 +81,7 @@ char * _cd(char *newdir)
 
 int main()
 {
-	char *current_dir = _cd("..");
+	char *current_dir = _cd("-");
 	char *homepath= get_home();
 	printf("home return %s\n",homepath);
 	return 0;
