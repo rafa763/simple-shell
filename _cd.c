@@ -53,36 +53,38 @@ void * _cd(char *newdir)
 	char *parentdir;
 	
 	dir = getcwd(buff, 1024);
-	printf("first directory : %s\n",dir);
-	
+	/*prints current woking directory*/
+	//printf("first directory : %s\n",dir);
+	/*handle "cd" to return home*/
 		if (newdir == NULL)
 		{
 			
 			parentdir = get_home();
 			chdir(parentdir);
 			dir = getcwd(buff, 1024);
-			printf("new dir :%s\n",dir);
+			//printf("new dir :%s\n",dir);
 		}
 		else if (strcmp(newdir, "-") == 0)
 		{
 			parentdir = get_previous();
 			chdir(parentdir);
 			dir = getcwd(buff, 1024);
-			printf("new dir :%s\n",dir);
+			//printf("new dir :%s\n",dir);
 		}
 		else
 		{
 			if (chdir(newdir) == -1)
 			{
+				/*perror msg*/
 			printf("cd failed wrong directory\n");
 			}
 			chdir(newdir);
 			dir = getcwd(buff, 1024);
-			printf("new dir: %s\n",dir);
+			//printf("new dir: %s\n",dir);
 		}	
 	free(parentdir);
 }
-
+/*
 int main()
 {
 	_cd(NULL);
@@ -90,4 +92,4 @@ int main()
 	_cd("/bin");
 	//_cd("/root");
 	return 0;
-}
+}*/
