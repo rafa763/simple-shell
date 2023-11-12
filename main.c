@@ -12,6 +12,7 @@
 int main(int ac, char **av)
 {
 	char *input;
+	char *prompt = "$ ";
 
 	// get the input from the user
 	if (isatty(STDIN_FILENO))
@@ -19,7 +20,7 @@ int main(int ac, char **av)
 		// interactive
 		while (1)
 		{
-			printf("$ ");
+			write(STDOUT_FILENO, prompt, strlen(prompt));
 			input = readline();
 			if (input == NULL)
 				return (0);
