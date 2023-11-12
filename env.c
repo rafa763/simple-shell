@@ -15,7 +15,6 @@
  * changed, that is due to process isolation, other programs or shells
  * won't see the modified env because they are isolated from each other
  */
-
 int _setenv(const char *name, const char *value, int overwrite)
 {
 	char *token, **ptr, *p;
@@ -67,6 +66,17 @@ int _setenv(const char *name, const char *value, int overwrite)
 		/*for (i = 0; environ[i]; i++)
 			printf("%s\n", environ[i]);*/
 	}	
+
+	return (0);
+}
+
+int _getenv(void)
+{
+	extern char **environ;
+	int i;
+
+	for (i = 0; environ[i]; i++)
+		printf("%s\n", environ[i]);
 
 	return (0);
 }

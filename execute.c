@@ -3,13 +3,14 @@
 int checkcommand(char *command, char **args)
 {
 	int stat, i;
-	char *result;
+	char *result, *prompt;
 	pid_t pid;
 
 	result = getpath(command);
+	prompt = "command not found\n";
 	if (!result)
 	{
-		printf("command not found\n");
+		write(STDOUT_FILENO, prompt, strlen(prompt));
 		return (-1);
 	}
 

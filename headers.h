@@ -19,5 +19,6 @@ char *getpath(char *command);
 int _setenv(const char *name, const char *value, int overwrite);
 int _unsetenv(const char *name);
 char *cat(const char *s1, const char *s2);
+int _getenv(void);
 
 #endif /* HEADERS_H */
