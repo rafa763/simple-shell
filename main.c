@@ -24,7 +24,7 @@ int main(int ac, char **av)
 			input = readline();
 			if (input == NULL)
 				return (0);
-			process(input);
+			parse(input);
 			//printf("%s\n", input);
 			free(input);
 		}
