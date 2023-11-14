@@ -7,13 +7,10 @@
  */
 int _exitshell(int status)
 {
-  if (status == 0 || !status)
-  exit(0);
+  if (status == 0)
+  exit(EXIT_SUCCESS);
 
-  else if (status > 0)
-  exit(status);
-
-  if (status < 0)
+  else if (status > 0 || status < 0)
   exit(status);
 }
 
@@ -33,28 +30,26 @@ int _exitshell(int status)
 #include <sys/wait.h>
 int string2num(char *str)
 {
-    int signal = 1;
-    int i;
-    unsigned int num = 0,flag = 0,result = 0;
-
-    for (i = 0;  str[i] != '\0' && flag != 2; i++)
+	unsigned int num = 0,flag = 0,result = 0;
+	int i, signal = 1;
+    for (i = 0;  str[i] != '\0' && flag < 2; i++)
     {
         if (str[i] == '-')
             signal *= -1;
 
-        if (str[i] >= '0' && str[i] <= '9')
+	else if (str[i] >= '0' && str[i] <= '9')
         {
-            flag = 1;
             num *= 10;
-            num += (str[i] - '0');
-        }
+            num += (str[i] - 48);
+	    flag = 1;
+	}
         else if (flag == 1)
             flag = 2;
     }
 
     if (signal == -1)
-        result = -num;
-    else
+        result = -1 * num;
+    else if (signal == 1)
         result = num;
 
     return (result);
