@@ -1,18 +1,14 @@
-#include "headers.h"
-
-#define MAX_ARGS 20
-/**
- * takes the line that the user has provided and processes it
- */
+#include <headers.h>
 int process(char *input)
 {
 	char *token, *command, *args[MAX_ARGS];
 	int i, start = 0, argcount = 0;
+	char buf[1024];
 
-	token = strtok(strdup(input), " ");
+	strcpy(buf,input);
+	token = strtok(buf, " ");
 	command = token;
 	args[argcount++] = token;
-	//printf("command: %s\n", command);
 
 	while (token && argcount < MAX_ARGS)
 	{
@@ -23,6 +19,5 @@ int process(char *input)
 	args[argcount] = NULL;
 
 	checkcommand(command, args);
-
 	return (0);
 }
