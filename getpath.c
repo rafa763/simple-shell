@@ -12,7 +12,7 @@ char *getpath(char *command)
 
     for (i = 0; environ[i]; i++)
     {
-        token = strtok((environ[i]), "=");
+        token = strtok(strdup(environ[i]), "=");
 
         if (strcmp("PATH", token) == 0)
         {
