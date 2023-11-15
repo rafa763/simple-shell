@@ -1,42 +1,42 @@
 #include "headers.h"
+
 char *getpath(char *command)
 {
-    int i, stat;
-    char *token, *path = "", full[1024];
-    extern char **environ;
-    char *sign = "/";
+	int i, stat;
+	char *token, *path= "", full[1024];
+	extern char **environ;
+	char *sign = "/";
 
-    stat = access(command, X_OK);
-    if (stat == 0)
-        return (command);
+	stat = access(command, X_OK);
+	if (stat == 0)
+		return (command);
 
-    for (i = 0; environ[i]; i++)
-    {
-        token = strtok((environ[i]), "=");
+	for (i = 0; environ[i]; i++)
+	{
+		token = strtok(strdup(environ[i]), "=");
 
-        if (strcmp("PATH", token) == 0)
-        {
-            token = strtok(NULL, "=");
-            break;
-        }
-    }
+		if (strcmp("PATH", token) == 0)
+		{
+			token = strtok(NULL, "=");
+			path = token;
+			break;
+		}
+	}
 
+	if (!path)
+		return (NULL);
 
-    token = strtok(token, ":");
-    while (token)
-    {
-        strcpy(full,token);
-        strcat(full,sign);
-        strcat(full,command);
-/*	printf("full: %s\n",full);*/
-	path= strdup(full);
-/*	printf("path: %s\n",path);*/
-        stat = access(full, X_OK);
-        if (stat == 0)
-	    return (path);
-	
-        token = strtok(NULL, ":");
-	free(path);
-    }
-    return (NULL);
+	token = strtok(token, ":");
+	while (token)
+	{
+		strcpy(full,token);
+		strcat(full,sign);
+		strcat(full,command);
+		path = strdup(full);	
+	if (access(path, X_OK) == 0)
+			return (path);
+		token = strtok(NULL, ":");
+		free(path);
+	}
+	return (NULL);
 }
