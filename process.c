@@ -105,8 +105,8 @@ int parse(char *input)
 
 	*p2 = '\0';  /* Null-terminate the modified string */
 
-	/* printf("%s\n", p3); */
 	free(input);
+	/* printf("%s\n", p3); */
 	process(p3);
 
 	return 0;

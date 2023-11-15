@@ -3,7 +3,7 @@
 char *getpath(char *command)
 {
 	int i, stat;
-	char *token, *path, *full, *p, *p2, *p3;
+	char *token, *path = NULL, *full, *p, *p2, *p3;
 	extern char **environ;
 
 	stat = access(command, X_OK);
@@ -47,12 +47,15 @@ char *getpath(char *command)
 
 		free(p2);
 		free(p3);
-		/* printf("%s\n", full);*/
 		stat = access(full, X_OK);
 		if (stat == 0)
 			break;
+		else
+		{
+			free(full);
+			full = NULL;
+		}
 
-		free(full);
 		token = strtok(NULL, ":");
 	}
 

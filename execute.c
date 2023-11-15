@@ -8,6 +8,7 @@ int checkcommand(char *command, char **args)
 	extern char **environ;
 
 	result = getpath(command);
+	/*printf("path: %s\n", result);*/
 	prompt = "command not found\n";
 	if (!result)
 	{
