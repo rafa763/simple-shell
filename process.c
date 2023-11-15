@@ -64,7 +64,7 @@ int parse(char *input)
 			*p2 = '\0';
 			res = process(p3);
 			if (res != 0)
-				return (0);
+				break;
 			p1 += 2;  /* Skip the '&&' */
 			p2 = buffer;
 			p3 = p2;
@@ -74,7 +74,10 @@ int parse(char *input)
 			*p2 = '\0';
 			res = process(p3);
 			if (res == 0)
+			{
+				free(input);
 				return (0);
+			}
 			/* printf("%s\n", p3); */
 			p1 += 2;  /* Skip the '||' */
 			p2 = buffer;
@@ -95,7 +98,7 @@ int parse(char *input)
 			/* printf("%s\n", p3); */
 			res = process(p3);
 			p3 = p2;
-			return (0);
+			break;
 		}
 		else
 		{
