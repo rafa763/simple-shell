@@ -7,7 +7,7 @@
 int process(char *input)
 {
 	char *token, *command, *args[MAX_ARGS];
-	int i, start = 0, argcount = 0;
+	int i, start = 0, argcount = 0, stat;
 
 	token = strtok(strdup(input), " ");
 	command = token;
@@ -25,13 +25,14 @@ int process(char *input)
 	if (strcmp(command, "env") == 0)
 		_getenv();
 	else
-		checkcommand(command, args);
+		stat = checkcommand(command, args);
 
-	return (0);
+	return (stat);
 }
 
 int parse(char *input)
 {
+	int res;
 	char *p1, *p2, *p3, buffer[100];  // Adjust the size according to your needs
 
 	p1 = input;
@@ -43,7 +44,9 @@ int parse(char *input)
 		if (*p1 == '&' && *(p1 + 1) == '&')
 		{
 			*p2 = '\0';
-			process(p3);
+			res = process(p3);
+			if (res != 0)
+				return (0);
 			p1 += 2;  // Skip the '&&'
 			p2 = buffer;
 			p3 = p2;
@@ -51,7 +54,9 @@ int parse(char *input)
 		else if (*p1 == '|' && *(p1 + 1) == '|')
 		{
 			*p2 = '\0';
-			process(p3);
+			res = process(p3);
+			if (res == 0)
+				return (0);
 			//printf("%s\n", p3);
 			p1 += 2;  // Skip the '||'
 			p2 = buffer;

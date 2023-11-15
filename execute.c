@@ -25,8 +25,8 @@ int checkcommand(char *command, char **args)
 	else
 	{
 		wait(&stat);
-		return (0);
+		return (stat);
 	}
 
-	return (0);
+	return (stat);
 }
