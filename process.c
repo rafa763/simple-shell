@@ -7,12 +7,12 @@
 int process(char *input)
 {
 	char *token, *command, *args[MAX_ARGS];
-	int i, start = 0, argcount = 0, stat;
+	int argcount = 0, stat;
 
 	token = strtok(strdup(input), " ");
 	command = token;
 	args[argcount++] = token;
-	//printf("command: %s\n", command);
+	/* printf("command: %s\n", command); */
 
 	while (token && argcount < MAX_ARGS)
 	{
@@ -24,8 +24,17 @@ int process(char *input)
 
 	if (strcmp(command, "env") == 0)
 		_getenv();
+	/**
+	if (strcmp(command, "setenv") == 0)
+		_setenv(*args);
+	if (strcmp(command, "unsetenv") == 0)
+		_unsetenv(*args);
+		*/
 	else
+	{
 		stat = checkcommand(command, args);
+		/* printf("stat: %d\n", stat); */
+	}
 
 	return (stat);
 }
@@ -33,7 +42,7 @@ int process(char *input)
 int parse(char *input)
 {
 	int res;
-	char *p1, *p2, *p3, buffer[100];  // Adjust the size according to your needs
+	char *p1, *p2, *p3, buffer[1024];  /* Adjust the size according to your needs */
 
 	p1 = input;
 	p2 = buffer;
@@ -47,7 +56,7 @@ int parse(char *input)
 			res = process(p3);
 			if (res != 0)
 				return (0);
-			p1 += 2;  // Skip the '&&'
+			p1 += 2;  /* Skip the '&&' */
 			p2 = buffer;
 			p3 = p2;
 		}
@@ -57,8 +66,8 @@ int parse(char *input)
 			res = process(p3);
 			if (res == 0)
 				return (0);
-			//printf("%s\n", p3);
-			p1 += 2;  // Skip the '||'
+			/* printf("%s\n", p3); */
+			p1 += 2;  /* Skip the '||' */
 			p2 = buffer;
 			p3 = p2;
 		}
@@ -66,7 +75,7 @@ int parse(char *input)
 		{
 			*p2 = '\0';
 			process(p3);
-			//printf("%s\n", p3);
+			/* printf("%s\n", p3); */
 			p1++;
 			p2 = buffer;
 			p3 = p2;
@@ -74,7 +83,7 @@ int parse(char *input)
 		else if (*p1 == '#' && *(p1 - 1) == ' ')
 		{
 			*p2 = '\0';
-			//printf("%s\n", p3);
+			/* printf("%s\n", p3); */
 			process(p3);
 			p3 = p2;
 			return (0);
@@ -85,9 +94,9 @@ int parse(char *input)
 		}
 	}
 
-	*p2 = '\0';  // Null-terminate the modified string
+	*p2 = '\0';  /* Null-terminate the modified string */
 
-	//printf("%s\n", p3);
+	/* printf("%s\n", p3); */
 	process(p3);
 
 	return 0;

@@ -44,7 +44,7 @@ int _setenv(const char *name, const char *value, int overwrite)
 	
 	for(x = 0; x < size; x++)
 	{
-		//printf("%s\n", environ[x]);
+		/*printf("%s\n", environ[x]);*/
 		ptr[x] = strdup(environ[x]);
 	}
 	
@@ -109,7 +109,7 @@ int _unsetenv(const char *name)
 	ptr = malloc(size * sizeof(char *));
 	if (!ptr)
 		return (-1);
-// [0, 4, 5 ,2, (1), 5, 7, 8]	
+
 	for(x = 0; x < place; x++)
 	{
 		printf("%s\n", environ[x]);

@@ -28,9 +28,9 @@ char *getpath(char *command)
 	token = strtok(token, ":");
 	while (token)
 	{
-		//printf("%s/%s\n", token, command);
+		/*printf("%s/%s\n", token, command);*/
 		full = strcat(strdup(token), strcat(strdup("/"), strdup(command)));
-		// printf("%s\n", full);
+		/* printf("%s\n", full);*/
 		stat = access(full, X_OK);
 		if (stat == 0)
 			return (full);
