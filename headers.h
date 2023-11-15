@@ -1,7 +1,6 @@
 #ifndef HEADERS_H
 #define HEADERS_H
 
-
 /* Importing Libraries */
 #include <stdio.h>
 #include <unistd.h>

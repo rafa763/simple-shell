@@ -23,11 +23,13 @@ int main(void)
 			write(STDOUT_FILENO, prompt, strlen(prompt));
 			input = readline();
 			if (input == NULL)
+			{
+				free(input);
 				return (0);
+			}
 			parse(input);
 			/* exit_status = WEXITSTATUS(status);
 			printf("Last exit status: %d\n", exit_status); */
-			free(input);
 		}
 	}
 	else

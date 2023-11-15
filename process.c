@@ -6,16 +6,16 @@
  */
 int process(char *input)
 {
-	char *token, *command, *args[MAX_ARGS];
+	char *token, *command, *p, *args[MAX_ARGS];
 	int argcount = 0, stat;
-	char buff[1024];
+	/* char buff[1024]; */
  
-	/*
 	p = strdup(input);
 	token = strtok(p, " ");
-	*/
+	/*
 	strcpy(buff, input);
 	token = strtok(buff, " ");
+	*/
 	command = token;
 	args[argcount++] = token;
 	/* printf("command: %s\n", command); */
@@ -28,21 +28,23 @@ int process(char *input)
 	}
 	args[argcount] = NULL;
 
-	/**
 	if (strcmp(command, "env") == 0)
-		printf("env\n");
 		_getenv();
-	if (strcmp(command, "setenv") == 0)
-		_setenv(*args);
-	if (strcmp(command, "unsetenv") == 0)
+	else if (strcmp(command, "setenv") == 0)
+		_setenv(command, *args, 1);
+	else if (strcmp(command, "unsetenv") == 0)
 		_unsetenv(*args);
+	else if (strcmp(command, "exit") == 0)
+	{
+		free(p);
+		exit(0);
+	}
 	else
 	{
 		stat = checkcommand(command, args);
-	} */
+	}
 
-	/* free(p); */
-	stat = checkcommand(command, args);
+	free(p);
 	return (stat);
 }
 
@@ -81,7 +83,7 @@ int parse(char *input)
 		else if (*p1 == ';')
 		{
 			*p2 = '\0';
-			process(p3);
+			res = process(p3);
 			/* printf("%s\n", p3); */
 			p1++;
 			p2 = buffer;
@@ -91,7 +93,7 @@ int parse(char *input)
 		{
 			*p2 = '\0';
 			/* printf("%s\n", p3); */
-			process(p3);
+			res = process(p3);
 			p3 = p2;
 			return (0);
 		}
@@ -104,6 +106,7 @@ int parse(char *input)
 	*p2 = '\0';  /* Null-terminate the modified string */
 
 	/* printf("%s\n", p3); */
+	free(input);
 	process(p3);
 
 	return 0;

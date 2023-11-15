@@ -25,7 +25,10 @@ char *getpath(char *command)
 	}
 
 	if (!path)
+	{
+		free(p);
 		return (NULL);
+	}
 
 	token = strtok(token, ":");
 	while (token)
