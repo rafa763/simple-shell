@@ -27,7 +27,10 @@ int main(void)
 				free(input);
 				return (0);
 			}
-			parse(input);
+			if (strcmp(input ,"") != 0)
+				parse(input);
+			else
+				free(input);
 			/* exit_status = WEXITSTATUS(status);
 			printf("Last exit status: %d\n", exit_status); */
 		}
