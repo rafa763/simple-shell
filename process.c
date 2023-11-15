@@ -6,11 +6,16 @@
  */
 int process(char *input)
 {
-	char *token, *command, *p, *args[MAX_ARGS];
+	char *token, *command, *args[MAX_ARGS];
 	int argcount = 0, stat;
-
+	char buff[1024];
+ 
+	/*
 	p = strdup(input);
 	token = strtok(p, " ");
+	*/
+	strcpy(buff, input);
+	token = strtok(buff, " ");
 	command = token;
 	args[argcount++] = token;
 	/* printf("command: %s\n", command); */
@@ -37,7 +42,7 @@ int process(char *input)
 		stat = checkcommand(command, args);
 	}
 
-	free(p);
+	/* free(p); */
 	return (stat);
 }
 
