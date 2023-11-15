@@ -27,7 +27,6 @@ int main(void)
 			parse(input);
 			/* exit_status = WEXITSTATUS(status);
 			printf("Last exit status: %d\n", exit_status); */
-			/*printf("%s\n", status);*/
 			free(input);
 		}
 	}
@@ -37,8 +36,7 @@ int main(void)
 		input = readline();
 		if (input == NULL)
 		    return (0);
-		process(input);
-		/* printf("%s\n", input); */
+		parse(input);
 		free(input);
 	}
 

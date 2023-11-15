@@ -12,6 +12,7 @@ int checkcommand(char *command, char **args)
 	if (!result)
 	{
 		write(STDOUT_FILENO, prompt, strlen(prompt));
+		free(result);
 		return (-1);
 	}
 
@@ -26,6 +27,7 @@ int checkcommand(char *command, char **args)
 	else
 	{
 		wait(&stat);
+		free(result);
 		return (stat);
 	}
 

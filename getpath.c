@@ -3,7 +3,7 @@
 char *getpath(char *command)
 {
 	int i, stat;
-	char *token, *path, *full;
+	char *token, *path, *full, *p, *p2, *p3;
 	extern char **environ;
 
 	stat = access(command, X_OK);
@@ -12,7 +12,8 @@ char *getpath(char *command)
 
 	for (i = 0; environ[i]; i++)
 	{
-		token = strtok(strdup(environ[i]), "=");
+		p = strdup(environ[i]);
+		token = strtok(p, "=");
 
 		if (strcmp("PATH", token) == 0)
 		{
@@ -20,6 +21,7 @@ char *getpath(char *command)
 			path = token;
 			break;
 		}
+		free(p);
 	}
 
 	if (!path)
@@ -28,14 +30,29 @@ char *getpath(char *command)
 	token = strtok(token, ":");
 	while (token)
 	{
-		/*printf("%s/%s\n", token, command);*/
-		full = strcat(strdup(token), strcat(strdup("/"), strdup(command)));
+		p2 = strdup(token);
+		p3 = strdup(command);
+		full = (char *)malloc(strlen(p2) + strlen("/") + strlen(p3) + 1);
+		if (full == NULL)
+		{
+			perror("Memory allocation error");
+			exit(EXIT_FAILURE);
+		}
+		strcpy(full, p2);
+		strcat(full, "/");
+		strcat(full, p3);
+
+		free(p2);
+		free(p3);
 		/* printf("%s\n", full);*/
 		stat = access(full, X_OK);
 		if (stat == 0)
-			return (full);
+			break;
+
+		free(full);
 		token = strtok(NULL, ":");
 	}
 
-	return (NULL);
+	free(p);
+	return (full);
 }

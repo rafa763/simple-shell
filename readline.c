@@ -1,6 +1,4 @@
 #include "headers.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 char *readline()
 {
@@ -9,7 +7,8 @@ char *readline()
 	ssize_t nread;
 
 	nread = getline(&line, &len, stdin);
-	if (nread == -1) {
+	if (nread == -1)
+	{
 		/* Error or end of file */
 		free(line);
 		return NULL;
@@ -19,5 +18,5 @@ char *readline()
 	if (line[nread - 1] == '\n')
 		line[nread - 1] = '\0';
 
-	return line;
+	return (line);
 }

@@ -81,6 +81,28 @@ int _getenv(void)
 	return (0);
 }
 
+char *findenv(char *key)
+{
+	int i;
+	char *p, *token;
+	extern char **environ;
+
+	for (i = 0; environ[i]; i++)
+	{
+		p = strdup(environ[i]);
+		token = strtok(p, "=");
+
+		if (strcmp(key, token) == 0)
+		{
+			token = strtok(NULL, "=");
+			return (token);
+		}
+		free(p);
+	}
+
+	return (NULL);
+}
+
 int _unsetenv(const char *name)
 {
 	char *token, **ptr;

@@ -6,10 +6,11 @@
  */
 int process(char *input)
 {
-	char *token, *command, *args[MAX_ARGS];
+	char *token, *command, *p, *args[MAX_ARGS];
 	int argcount = 0, stat;
 
-	token = strtok(strdup(input), " ");
+	p = strdup(input);
+	token = strtok(p, " ");
 	command = token;
 	args[argcount++] = token;
 	/* printf("command: %s\n", command); */
@@ -23,7 +24,8 @@ int process(char *input)
 	args[argcount] = NULL;
 
 	if (strcmp(command, "env") == 0)
-		_getenv();
+		printf("env\n");
+		/* _getenv(); */
 	/**
 	if (strcmp(command, "setenv") == 0)
 		_setenv(*args);
@@ -33,9 +35,9 @@ int process(char *input)
 	else
 	{
 		stat = checkcommand(command, args);
-		/* printf("stat: %d\n", stat); */
 	}
 
+	free(p);
 	return (stat);
 }
 
