@@ -9,33 +9,36 @@
  *
  * Return - 0 on success, -1 of failure
  */
-int main(int ac, char **av)
+int main(void)
 {
 	char *input;
+	char *prompt = "$ ";
 
-	// get the input from the user
+	/* get the input from the user */
 	if (isatty(STDIN_FILENO))
 	{
-		// interactive
+		/* interactive */
 		while (1)
 		{
-			printf("$ ");
+			write(STDOUT_FILENO, prompt, strlen(prompt));
 			input = readline();
 			if (input == NULL)
 				return (0);
-			process(input);
-			//printf("%s\n", input);
+			parse(input);
+			/* exit_status = WEXITSTATUS(status);
+			printf("Last exit status: %d\n", exit_status); */
+			/*printf("%s\n", status);*/
 			free(input);
 		}
 	}
 	else
 	{
-		// non interactive
+		/* non interactive */
 		input = readline();
 		if (input == NULL)
 		    return (0);
 		process(input);
-		//printf("%s\n", input);
+		/* printf("%s\n", input); */
 		free(input);
 	}
 

@@ -5,6 +5,7 @@ char *getpath(char *command)
     char *token, *path = "", full[1024];
     extern char **environ;
     char *sign = "/";
+    char *finaloutput;
 
     stat = access(command, X_OK);
     if (stat == 0)
@@ -33,7 +34,11 @@ char *getpath(char *command)
 //	printf("path: %s\n",path);
         stat = access(path, X_OK);
         if (stat == 0)
-            return (path);
+	{
+		finaloutput = path;
+            free(path);
+	    return (finaloutput);
+	}
         token = strtok(NULL, ":");
 	free(path);
     }

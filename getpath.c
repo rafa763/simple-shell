@@ -6,6 +6,10 @@ char *getpath(char *command)
 	char *token, *path, *full;
 	extern char **environ;
 
+	stat = access(command, X_OK);
+	if (stat == 0)
+		return (command);
+
 	for (i = 0; environ[i]; i++)
 	{
 		token = strtok(strdup(environ[i]), "=");
@@ -19,17 +23,14 @@ char *getpath(char *command)
 	}
 
 	if (!path)
-	{
-		printf("a7aaaaa\n");
 		return (NULL);
-	}
 
 	token = strtok(token, ":");
 	while (token)
 	{
-		//printf("%s/%s\n", token, command);
+		/*printf("%s/%s\n", token, command);*/
 		full = strcat(strdup(token), strcat(strdup("/"), strdup(command)));
-		// printf("%s\n", full);
+		/* printf("%s\n", full);*/
 		stat = access(full, X_OK);
 		if (stat == 0)
 			return (full);
