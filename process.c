@@ -24,16 +24,16 @@ int process(char *input)
 	}
 	args[argcount] = NULL;
 
-	/*if (strcmp(command, "env") == 0)
-	*	_getenv();*/
-	/**
-	*if (strcmp(command, "setenv") == 0)
-	*	_setenv(*args);
-	*if (strcmp(command, "unsetenv") == 0)
-	*	_unsetenv(*args);
-		*/
-	/*else
-	{*/
+	if (strcmp(command, "env") == 0)
+		_getenv();
+/*	if (strcmp(command, "setenv") == 0)
+		_setenv(*args);*/
+	if (strcmp(command, "unsetenv") == 0)
+		_unsetenv(*args);
+	
+	else
+	{
 		stat = checkcommand(command, args);
-	return (stat);
+	}
+		return (stat);
 }
