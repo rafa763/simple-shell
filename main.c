@@ -1,13 +1,9 @@
 #include "headers.h"
 
 /**
- * main - Entry point for the shell, handles the interactive and non-interactive
+ * main - Entry point for shell(interactive and non-interactive)
  * modes of the shell
- *
- * @ac: argument count
- * @av: argument vector
- *
- * Return - 0 on success, -1 of failure
+ * Return:0 on success, -1 of failure
  */
 int main(void)
 {
@@ -25,8 +21,8 @@ int main(void)
 			if (input == NULL)
 				return (0);
 			parse(input);
-			/* exit_status = WEXITSTATUS(status);
-			printf("Last exit status: %d\n", exit_status); */
+			/* exit_status = WEXITSTATUS(status);*/
+			/*printf("Last exit status: %d\n", exit_status); */
 			/*printf("%s\n", status);*/
 			free(input);
 		}
@@ -36,7 +32,7 @@ int main(void)
 		/* non interactive */
 		input = readline();
 		if (input == NULL)
-		    return (0);
+			return (0);
 		process(input);
 		/* printf("%s\n", input); */
 		free(input);
