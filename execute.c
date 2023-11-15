@@ -2,9 +2,10 @@
 
 int checkcommand(char *command, char **args)
 {
-	int stat, i;
+	int stat;
 	char *result, *prompt;
 	pid_t pid;
+	extern char **environ;
 
 	result = getpath(command);
 	prompt = "command not found\n";
@@ -19,7 +20,7 @@ int checkcommand(char *command, char **args)
 		perror("Error in forking");
 	else if (pid == 0)
 	{
-		execve(result, args, NULL);
+		execve(result, args, environ);
 		perror("Error in child");
 	}
 	else
