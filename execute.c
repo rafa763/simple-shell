@@ -1,5 +1,10 @@
 #include "headers.h"
-
+/**
+ *checkcommand-checks the validaity of user input
+ *@command:user input after executable found
+ *@args:commandline argument
+ *Return:status of executable file
+ **/
 int checkcommand(char *command, char **args)
 {
 	int stat;

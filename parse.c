@@ -5,14 +5,15 @@
  *Return:0success
  */
 int parse(char *input)
-{
-	int res;
-	char *p1, *p2, *p3, buffer[1024];
+{int res;
+char *p1, *p2, *p3, buffer[1024];
 
-	p1 = input; p2 = buffer; p3 = p2;
-	while (*p1 != '\0')
-	{
-		if (*p1 == '&' && *(p1 + 1) == '&')
+p1 = input; 
+p2 = buffer; 
+p3 = p2;
+while (*p1 != '\0')
+{
+	if (*p1 == '&' && *(p1 + 1) == '&')
 		{
 			*p2 = '\0';
 			res = process(p3);
