@@ -5,7 +5,6 @@ char *getpath(char *command)
     char *token, *path = "", full[1024];
     extern char **environ;
     char *sign = "/";
-    char *p;
 
     stat = access(command, X_OK);
     if (stat == 0)
@@ -13,16 +12,14 @@ char *getpath(char *command)
 
     for (i = 0; environ[i]; i++)
     {
-	    p= strdup(environ[i]);
-        token = strtok((p), "=");
+        token = strtok((environ[i]), "=");
 
         if (strcmp("PATH", token) == 0)
         {
             token = strtok(NULL, "=");
             break;
         }
-	free(p);
-} 
+    }
 
 
     token = strtok(token, ":");
