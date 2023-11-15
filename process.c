@@ -1,6 +1,6 @@
 #include "headers.h"
 
-#define MAX_ARGS 20
+#define MAX_ARGS 200
 /**
  *process-takes user input and tokenize it to reach final executable command
  *@input:user input to command line
@@ -24,16 +24,15 @@ int process(char *input)
 	}
 	args[argcount] = NULL;
 
-	if (strcmp(command, "env") == 0)
-		_getenv();
+/*	if (strcmp(command, "env") == 0)
+		_getenv();*/
 /*	if (strcmp(command, "setenv") == 0)
 		_setenv(*args);*/
-	if (strcmp(command, "unsetenv") == 0)
-		_unsetenv(*args);
+/*	if (strcmp(command, "unsetenv") == 0)
+		_unsetenv(*args);*/
 	
-	else
-	{
+
 		stat = checkcommand(command, args);
-	}
+	
 		return (stat);
 }
