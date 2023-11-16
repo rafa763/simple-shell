@@ -10,6 +10,7 @@
 #include <fcntl.h>
 #include <sys/wait.h>
 
+extern char **environ;
 
 /* Function Prototypes */
 char *readline();

@@ -11,7 +11,6 @@
 int _setenv(const char *name, const char *value, int overwrite)
 {
 	char *token, **ptr, *p;
-	extern char **environ;
 	int i, x, size = 0, found = 0, place = 0;
 
 	for (i = 0; environ[i]; i++)
@@ -55,7 +54,6 @@ int _setenv(const char *name, const char *value, int overwrite)
  **/
 int _getenv(void)
 {
-	extern char **environ;
 	int i;
 
 	for (i = 0; environ[i]; i++)
@@ -66,12 +64,11 @@ int _getenv(void)
 /**
  *_unsetenv-removing certain enviroment variables
  *@name:variable to change
- *Return:new enviroment 
+ *Return:new enviroment
  **/
 int _unsetenv(const char *name)
 {
 	char *token, **ptr;
-	extern char **environ;
 	int i, x, size = 0, found = 0, place = 0;
 
 	for (i = 0; environ[i]; i++)
