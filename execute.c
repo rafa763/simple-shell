@@ -10,7 +10,6 @@ int checkcommand(char *command, char **args)
 	int stat;
 	char *result, *prompt;
 	pid_t pid;
-	extern char **environ;
 
 	result = getpath(command);
 	prompt = "command not found\n";
