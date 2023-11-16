@@ -90,15 +90,11 @@ int _unsetenv(const char *name)
 	if (!ptr)
 		return (-1);
 	for (x = 0; x < place; x++)
-	{
-		printf("%s\n", environ[x]);
 		ptr[x] = strdup(environ[x]);
-	}
+
 	for (x = place + 1; x < size; x++)
-	{
-		printf("%s\n", environ[x]);
 		ptr[x - 1] = strdup(environ[x]);
-	}
+
 	environ = ptr;
 	return (0);
 }

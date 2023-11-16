@@ -26,11 +26,13 @@ int process(char *input)
 	args[argcount] = NULL;
 
 	if (strcmp(command, "env") == 0)
-		_getenv();
+		stat = _getenv();
 	else if (strcmp(command, "setenv") == 0)
-		_setenv(args[0], args[1], 1);
+		stat = _setenv(args[1], args[2], 1);
 	else if (strcmp(command, "unsetenv") == 0)
-		_unsetenv(args[0]);
+		stat = _unsetenv(args[1]);
+	else if (strcmp(command, "exit") == 0)
+		exit(0);
 	else
 		stat = checkcommand(command, args);
 
