@@ -22,5 +22,8 @@ int _unsetenv(const char *name);
 char *cat(const char *s1, const char *s2);
 int _getenv(void);
 int parse(char *input);
+char *processToken(char *p1, char **p2, char **p3, char *buffer);
+char *processAnd(char **p2, char **p3, char *buffer);
+void processCommand(char **p3, char **p2);
 
 #endif /* HEADERS_H */
